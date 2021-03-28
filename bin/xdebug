@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+if [ "$1" == "disable" ]; then
+  docker-compose exec wordpress sed -i -e 's/^zend_extension/\;zend_extension/g' /usr/local/etc/php/conf.d/xdebug.ini
+  sleep 1
+  docker-compose restart wordpress
+  echo "Xdebug has been disabled in Magento container."
+elif [ "$1" == "enable" ]; then
+  docker-compose exec wordpress sed -i -e 's/^\;zend_extension/zend_extension/g' /usr/local/etc/php/conf.d/xdebug.ini
+  sleep 1
+  docker-compose restart wordpress
+  echo "Xdebug has been enabled in Wordpress container."
+else
+  echo "Please specify either 'enable' or 'disable' as an argument"
+fi
