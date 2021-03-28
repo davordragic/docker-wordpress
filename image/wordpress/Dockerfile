@@ -30,16 +30,16 @@ COPY xdebug.ini /usr/local/etc/php/conf.d/
 # works here, and we can use it to enable xdebug:
 RUN docker-php-ext-enable xdebug
 
-#COPY 000-default.conf /etc/apache2/sites-available/
-#COPY php.ini /usr/local/etc/php/php.ini
-#
-#RUN apt update
-#RUN apt install nano sudo
-#
-#RUN groupadd -g 1000 app
-#RUN useradd -g 1000 -u 1000 -s /bin/bash app
-#RUN usermod -aG sudo app
-#RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+COPY 000-default.conf /etc/apache2/sites-available/
+COPY php.ini /usr/local/etc/php/php.ini
+
+RUN apt update
+RUN apt install nano sudo
+
+RUN groupadd -g 1000 app
+RUN useradd -g 1000 -u 1000 -s /bin/bash app
+RUN usermod -aG sudo app
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 #USER app
 EXPOSE 80
